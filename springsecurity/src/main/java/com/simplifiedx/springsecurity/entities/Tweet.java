@@ -19,7 +19,7 @@ import java.util.UUID;
 public class Tweet {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
     private String content;

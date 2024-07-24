@@ -19,5 +19,6 @@ public class Role {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @Enumerated(EnumType.STRING)
+    @Column(unique = true)
     private RoleList role;
 }
