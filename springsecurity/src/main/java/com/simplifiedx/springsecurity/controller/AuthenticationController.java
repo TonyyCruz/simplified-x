@@ -1,6 +1,6 @@
 package com.simplifiedx.springsecurity.controller;
 
-import com.simplifiedx.springsecurity.dto.response.TokenDto.LoginResponseTokenDto;
+import com.simplifiedx.springsecurity.dto.response.LoginResponseTokenDto;
 import com.simplifiedx.springsecurity.service.AuthenticationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;

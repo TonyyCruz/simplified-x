@@ -21,10 +21,10 @@ public class Role implements GrantedAuthority {
     private UUID id;
     @Enumerated(EnumType.STRING)
     @Column(unique = true)
-    private RoleList role;
+    private RoleList roleName;
 
     @Override
     public String getAuthority() {
-        return role.name();
+        return roleName.name();
     }
 }
