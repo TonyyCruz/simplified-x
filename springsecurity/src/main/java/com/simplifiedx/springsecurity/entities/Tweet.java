@@ -15,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "TB_TWEET")
+@Table(name = "TB_TWEETS")
 public class Tweet {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
