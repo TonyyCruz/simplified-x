@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RoleService {
@@ -19,6 +20,7 @@ public class RoleService {
         this.roleRepository = roleRepository;
     }
 
+    @Transactional(readOnly = true)
     public Role findByRoleName(RoleList role) {
         return roleRepository.findByRoleName(role)
                 .orElseThrow(() -> new EntityNotFoundException("Role not found with name: " + role));

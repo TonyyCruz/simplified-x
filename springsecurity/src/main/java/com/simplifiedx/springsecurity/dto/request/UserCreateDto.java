@@ -1,6 +1,7 @@
 package com.simplifiedx.springsecurity.dto.request;
 
 import com.simplifiedx.springsecurity.entities.User;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserCreateDto {
     private String username;
+    @Min(6)
     private String password;
 
     public User toEntity() {
