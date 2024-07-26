@@ -1,5 +1,6 @@
 package com.simplifiedx.springsecurity.dto.request;
 
+import com.simplifiedx.springsecurity.config.validate.UniqueUsername;
 import com.simplifiedx.springsecurity.entities.User;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserCreateDto {
+    @UniqueUsername(message = "This username is already in use.")
     private String username;
     @Min(6)
     private String password;
