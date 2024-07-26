@@ -7,10 +7,10 @@ import com.simplifiedx.springsecurity.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -26,5 +26,12 @@ public class UserController {
     public ResponseEntity<UserViewDto> create(@RequestBody @Valid UserCreateDto userDto) {
         User user = userService.create(userDto.toEntity());
         return ResponseEntity.status(HttpStatus.CREATED).body(new UserViewDto(user));
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
+    public ResponseEntity<List<UserViewDto>> listAll() {
+        List<UserViewDto> users = userService.findAll().stream().map(UserViewDto::new).toList();
+        return ResponseEntity.ok(users);
     }
 }

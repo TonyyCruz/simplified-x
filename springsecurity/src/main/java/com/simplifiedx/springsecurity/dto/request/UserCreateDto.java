@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class UserCreateDto {
     @UniqueUsername(message = "This username is already in use.")
     private String username;
-    @Min(6)
+    @Min(value = 6, message = "The password must be at least 6 characters long.")
     private String password;
 
     public User toEntity() {
