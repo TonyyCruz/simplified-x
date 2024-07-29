@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -33,5 +34,12 @@ public class UserController {
     public ResponseEntity<List<UserViewDto>> listAll() {
         List<UserViewDto> users = userService.findAll().stream().map(UserViewDto::new).toList();
         return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
+    public ResponseEntity<UserViewDto> findById(@PathVariable("id")UUID id) {
+        User user = userService.findById(id);
+        return ResponseEntity.ok(new UserViewDto(user));
     }
 }

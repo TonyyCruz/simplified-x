@@ -1,14 +1,9 @@
 package com.simplifiedx.springsecurity.service;
 
 import com.simplifiedx.springsecurity.entities.Role;
-import com.simplifiedx.springsecurity.entities.User;
 import com.simplifiedx.springsecurity.enums.RoleList;
 import com.simplifiedx.springsecurity.repository.RoleRepository;
-import com.simplifiedx.springsecurity.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

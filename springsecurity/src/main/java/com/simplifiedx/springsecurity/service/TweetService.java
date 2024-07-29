@@ -1,16 +1,16 @@
 package com.simplifiedx.springsecurity.service;
 
-import com.simplifiedx.springsecurity.entities.Role;
 import com.simplifiedx.springsecurity.entities.Tweet;
 import com.simplifiedx.springsecurity.entities.User;
-import com.simplifiedx.springsecurity.enums.RoleList;
+import com.simplifiedx.springsecurity.exceptions.UnauthorizedException;
 import com.simplifiedx.springsecurity.repository.TweetRepository;
 import com.simplifiedx.springsecurity.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -32,13 +32,28 @@ public class TweetService {
     }
 
     @Transactional(readOnly = true)
-    public Tweet findOne(UUID id) {
+    public Tweet findById(UUID id) {
         return tweetRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Tweet not found with id: " + id));
     }
 
     @Transactional(readOnly = true)
-    public List<Tweet> findAll() {
-        return tweetRepository.findAll();
+    public Page<Tweet> findAll(Pageable pageable) {
+        return tweetRepository.findAll(pageable);
+    }
+
+    @Transactional
+    public void delete(UUID userId, UUID tweetId) {
+        Tweet tweet = findById(tweetId);
+        if (!tweet.getUser().getId().equals(userId)) {
+            throw new UnauthorizedException("You have no authorization to delete this tweet.");
+        }
+        tweetRepository.deleteById(tweetId);
+    }
+
+    @Transactional
+    public void delete(UUID id) {
+        findById(id);
+        tweetRepository.deleteById(id);
     }
 }
