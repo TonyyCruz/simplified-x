@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -41,5 +42,10 @@ public class UserService implements UserDetailsService {
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
+    }
+
+    public User findById(UUID id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with id: " + id));
     }
 }

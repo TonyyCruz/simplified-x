@@ -1,5 +1,6 @@
 package com.simplifiedx.springsecurity.entities;
 
+import com.simplifiedx.springsecurity.enums.RoleList;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -35,6 +36,10 @@ public class User implements UserDetails {
 
     public void addRole(Role role) {
         roles.add(role);
+    }
+
+    public boolean isAdmin() {
+        return getAuthorities().stream().anyMatch(role -> role.getAuthority().contains(RoleList.ROLE_ADMIN.name()));
     }
 
     @Override
