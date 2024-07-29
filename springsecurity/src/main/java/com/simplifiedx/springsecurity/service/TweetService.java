@@ -6,10 +6,11 @@ import com.simplifiedx.springsecurity.exceptions.UnauthorizedException;
 import com.simplifiedx.springsecurity.repository.TweetRepository;
 import com.simplifiedx.springsecurity.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -37,8 +38,8 @@ public class TweetService {
     }
 
     @Transactional(readOnly = true)
-    public List<Tweet> findAll() {
-        return tweetRepository.findAll();
+    public Page<Tweet> findAll(Pageable pageable) {
+        return tweetRepository.findAll(pageable);
     }
 
     @Transactional
