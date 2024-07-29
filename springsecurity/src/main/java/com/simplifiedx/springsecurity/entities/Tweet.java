@@ -1,10 +1,7 @@
 package com.simplifiedx.springsecurity.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
@@ -12,18 +9,18 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "TB_TWEET")
+@Table(name = "TB_TWEETS")
 public class Tweet {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
     private String content;
     @CreationTimestamp
     private Instant creationTimesTamp;
-
 }
