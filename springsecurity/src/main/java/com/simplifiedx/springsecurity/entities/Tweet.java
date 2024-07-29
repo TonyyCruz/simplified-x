@@ -1,10 +1,7 @@
 package com.simplifiedx.springsecurity.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
@@ -12,6 +9,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -25,5 +23,4 @@ public class Tweet {
     private String content;
     @CreationTimestamp
     private Instant creationTimesTamp;
-
 }

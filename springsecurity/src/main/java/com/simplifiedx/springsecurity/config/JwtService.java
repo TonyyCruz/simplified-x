@@ -1,5 +1,6 @@
 package com.simplifiedx.springsecurity.config;
 
+import com.simplifiedx.springsecurity.entities.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,11 +25,12 @@ public class JwtService {
         String scopes = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(" "));
+        User user = (User) authentication.getPrincipal();
         var claims = JwtClaimsSet.builder()
                 .issuer("spring-security-jwt")
                 .issuedAt(now)
                 .expiresAt(now.plusSeconds(expirationTime))
-                .subject(authentication.getName())
+                .subject(user.getId().toString())
                 .claim("scope", scopes)
                 .build();
         return encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
